@@ -1,14 +1,12 @@
 <div class="container">
   <header>
-    <h1>☕ Coffee Shop</h1>
-    <p>Build your perfect coffee with Decorator & Factory Patterns</p>
+    <h1>Coffee Shop</h1>
   </header>
 
   <main>
     <div class="order-panel">
       <h2>Create Your Coffee</h2>
 
-      <!-- Base Coffee Selection -->
       <div class="form-group">
         <label>Select Base Coffee :</label>
         <div class="coffee-options">
@@ -23,7 +21,6 @@
         </div>
       </div>
 
-      <!-- Add-ons Selection -->
       <div class="form-group">
         <label>Coffee Addons:</label>
         <div class="addons-grid">
@@ -36,7 +33,6 @@
         </div>
       </div>
 
-      <!-- Action Buttons -->
       <div class="actions">
         <button class="btn-order" (click)="placeOrder()" [disabled]="loading">
           {{ loading ? 'Placing Order...' : 'Order Coffee' }}
@@ -44,14 +40,11 @@
         <button class="btn-reset" (click)="resetOrder()">Reset</button>
       </div>
 
-      <!-- Error Message -->
       <div *ngIf="error" class="error-message">
         {{ error }}
       </div>
     </div>
 
-    <!-- Order Result - This should show when orderResult is not null -->
-    <!-- Order Result -->
     <div *ngIf="orderResult" class="result-panel">
       <h2>Your Order</h2>
       <div class="order-details">
