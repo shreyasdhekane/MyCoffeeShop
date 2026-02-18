@@ -1,0 +1,73 @@
+<div class="container">
+  <header>
+    <h1>☕ Coffee Shop</h1>
+    <p>Build your perfect coffee with Decorator & Factory Patterns</p>
+  </header>
+
+  <main>
+    <div class="order-panel">
+      <h2>Create Your Coffee</h2>
+
+      <!-- Base Coffee Selection -->
+      <div class="form-group">
+        <label>Select Base Coffee :</label>
+        <div class="coffee-options">
+          <button
+            *ngFor="let coffee of menu.baseCoffees"
+            class="coffee-btn"
+            [class.selected]="selectedBaseCoffee === coffee"
+            (click)="selectedBaseCoffee = coffee"
+          >
+            {{ coffee }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Add-ons Selection -->
+      <div class="form-group">
+        <label>Coffee Addons:</label>
+        <div class="addons-grid">
+          <div *ngFor="let addOn of menu.addOns" class="addon-item">
+            <label>
+              <input type="checkbox" [value]="addOn" (change)="onAddOnChange(addOn, $event)" />
+              {{ formatAddOnName(addOn) }} (+${{ getAddOnPrice(addOn) }})
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="actions">
+        <button class="btn-order" (click)="placeOrder()" [disabled]="loading">
+          {{ loading ? 'Placing Order...' : 'Order Coffee' }}
+        </button>
+        <button class="btn-reset" (click)="resetOrder()">Reset</button>
+      </div>
+
+      <!-- Error Message -->
+      <div *ngIf="error" class="error-message">
+        {{ error }}
+      </div>
+    </div>
+
+    <!-- Order Result - This should show when orderResult is not null -->
+    <!-- Order Result -->
+    <div *ngIf="orderResult" class="result-panel">
+      <h2>Your Order</h2>
+      <div class="order-details">
+        <p class="description">
+          <strong>{{ selectedBaseCoffee }}</strong>
+          <span *ngIf="selectedAddOns.length > 0">
+            <br />with
+            <span *ngFor="let addOn of selectedAddOns; let last = last">
+              {{ formatAddOnName(addOn) }} (+${{ getAddOnPrice(addOn) }})<span *ngIf="!last"
+                >,
+              </span>
+            </span>
+          </span>
+        </p>
+        <p class="cost">Total: {{ orderResult.formattedCost }}</p>
+      </div>
+    </div>
+  </main>
+</div>
